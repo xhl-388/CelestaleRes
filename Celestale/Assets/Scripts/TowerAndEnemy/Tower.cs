@@ -4,12 +4,13 @@ using UnityEngine;
 /// <summary>
 /// the base of all the towers
 /// </summary>
-public class Tower : MonoBehaviour
+public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRateChange,IShootSpeedChange,IDizziness
 {
     [SerializeField]
     protected float Hp;             //生命值上限
     protected float HpNow;          //当前生命值
     public bool isFullHp { get { return Hp == HpNow; } }
+    private bool isDizz = false;
     [SerializeField]
     protected float shootSpeed;     //射速（同时也是减益buff的施加速度和生命恢复塔的生命恢复速度）
     protected float shootSpeedNow;  //当前射速
@@ -18,6 +19,8 @@ public class Tower : MonoBehaviour
     [SerializeField]
     protected float abilityValue;   //能力值（攻击伤害，减益效率，生命恢复效率）
     protected float abilityValueNow;//当前能力值
+    protected float abilityRate;    //能力倍率
+    protected float beAttackedRate; //收到伤害的倍率
     [SerializeField]
     protected int arrangeCost;      //部署花费
     [SerializeField]
@@ -26,13 +29,18 @@ public class Tower : MonoBehaviour
     {
         Debug.LogWarning("No upper component!");
     }
-    public virtual void BeDestroyed()               //被摧毁
+    public void BeDestroyed()               //被摧毁
     {
-        Debug.LogWarning("No upper component!");
+        StopAllCoroutines();
+        Destroy(gameObject);
     }
-    public void GetDamaged()                        //受到攻击
+    public void GetDamaged(float damage)                        //受到攻击
     {
-
+        HpNow = Mathf.Clamp(HpNow-damage*beAttackedRate, 0f, Hp);
+        if (HpNow == 0f)
+        {
+            BeDestroyed();
+        }
     }
     public void GetHealed(float resume)                         //收到治疗效果
     {
@@ -43,6 +51,8 @@ public class Tower : MonoBehaviour
         HpNow = Hp;
         shootSpeedNow = shootSpeed;
         abilityValueNow = abilityValue;
+        abilityRate = 1f;
+        beAttackedRate = 1f;
 
         BoxCollider2D collider;
         if ((collider = GetComponent<BoxCollider2D>()) != null)
@@ -51,5 +61,52 @@ public class Tower : MonoBehaviour
         }
         else Debug.LogError("Collider missing!");
 
+    }
+    public float GetAbilityNowValue()
+    {
+        return abilityValueNow;
+    }
+
+
+
+    public float GetAbilityNow()
+    {
+        return abilityValueNow;
+    }
+    public void SetAbilityNow(float ability)
+    {
+        abilityValueNow = ability;
+    }
+    public float GetAbilityRate()
+    {
+        return abilityRate;
+    }
+    public void SetAbilityRate(float abilityRate)
+    {
+        this.abilityRate = abilityRate;
+    }
+    public float GetAttackedRate()
+    {
+        return beAttackedRate;
+    }
+    public void SetAttackedRate(float attackedRate)
+    {
+        beAttackedRate = attackedRate;
+    }
+    public float GetShootSpeedNow()
+    {
+        return shootSpeedNow;
+    }
+    public void SetShootSpeedNow(float shootSpeed)
+    {
+        shootSpeedNow = shootSpeed;
+    }
+    public bool IsDizz()
+    {
+        return isDizz;
+    }
+    public void SetDizz(bool isDizz)
+    {
+        this.isDizz = isDizz;
     }
 }

@@ -23,6 +23,10 @@ public class HealTower : Tower
     }
     private void Update()
     {
+        if (IsDizz())
+        {
+            return;
+        }
         if (healTarget != null)
         {
             if (Time.time > nextHealTime)
@@ -38,7 +42,7 @@ public class HealTower : Tower
     }
     public override void Act(object o)      //行为：治疗友方
     {
-        ((Tower)o).GetHealed(abilityValueNow);
+        ((Tower)o).GetHealed(abilityValueNow*abilityRate);
     }
     private void SearchTowerNeedHeal()
     {
