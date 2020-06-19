@@ -4,10 +4,11 @@ using UnityEngine;
 /// <summary>
 /// enemy that will positivly attack tower
 /// </summary>
-public class AttackEnemy : Enemy,IAbilityChange
+public class AttackEnemy : Enemy,IAbilityChange,IShootSpeedChange
 {
     [SerializeField]
     protected float attackSpeed;
+    protected float attackSpeedNow;
     [SerializeField]
     protected float attack;
     [SerializeField]
@@ -29,6 +30,7 @@ public class AttackEnemy : Enemy,IAbilityChange
     protected virtual void Awake()
     {
         towerLayer = 1 << LayerMask.NameToLayer("Tower");
+        attackSpeedNow = attackSpeed;
         InitEnemy();
     }
     protected virtual void Update()
@@ -74,5 +76,21 @@ public class AttackEnemy : Enemy,IAbilityChange
     public void SetAbilityNow(float attack)
     {
         this.attack = attack;
+    }
+    public void GiveAttackChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.AttackBuff(this, change, time));
+    }
+    public float GetShootSpeedNow()
+    {
+        return attackSpeedNow;
+    }
+    public void SetShootSpeedNow(float shootSpeed)
+    {
+        attackSpeedNow = shootSpeed;
+    }
+    public void GiveAttackSpeedChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.ShootSpeedBuff(this, change, time));
     }
 }

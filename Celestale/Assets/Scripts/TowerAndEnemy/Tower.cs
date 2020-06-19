@@ -11,6 +11,8 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     protected float HpNow;          //当前生命值
     public bool isFullHp { get { return Hp == HpNow; } }
     private bool isDizz = false;
+    protected float shield = 0f;
+    private bool hasShield { get { return shield != 0f; } }
     [SerializeField]
     protected float shootSpeed;     //射速（同时也是减益buff的施加速度和生命恢复塔的生命恢复速度）
     protected float shootSpeedNow;  //当前射速
@@ -36,7 +38,21 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     }
     public void GetDamaged(float damage)                        //受到攻击
     {
-        HpNow = Mathf.Clamp(HpNow-damage*beAttackedRate, 0f, Hp);
+        float trueDamage = damage * beAttackedRate;
+        if (hasShield)
+        {
+            if (shield >= trueDamage)
+            {
+                shield -= trueDamage;
+                trueDamage = 0f;
+            }
+            else
+            {
+                trueDamage -= shield;
+                shield = 0f;
+            }
+        }
+        HpNow = Mathf.Clamp(HpNow-trueDamage, 0f, Hp);
         if (HpNow == 0f)
         {
             BeDestroyed();
@@ -68,7 +84,10 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     }
 
 
-
+    public void GiveShieldBuff(float value)
+    {
+        shield += value;
+    }
     public float GetAbilityNow()
     {
         return abilityValueNow;
@@ -76,6 +95,10 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public void SetAbilityNow(float ability)
     {
         abilityValueNow = ability;
+    }
+    public void GiveAttackChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.AttackBuff(this, change, time));
     }
     public float GetAbilityRate()
     {
@@ -85,6 +108,10 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     {
         this.abilityRate = abilityRate;
     }
+    public void GiveAttackRateChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.AttackRateBuff(this, change, time));
+    }
     public float GetAttackedRate()
     {
         return beAttackedRate;
@@ -92,6 +119,10 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public void SetAttackedRate(float attackedRate)
     {
         beAttackedRate = attackedRate;
+    }
+    public void GiveAttackedRateChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.AttackedRateBuff(this, change, time));
     }
     public float GetShootSpeedNow()
     {
@@ -101,6 +132,10 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     {
         shootSpeedNow = shootSpeed;
     }
+    public void GiveShootSpeedChangeBuff(float change,float time)
+    {
+        StartCoroutine(BuffController.ShootSpeedBuff(this, change, time));
+    }
     public bool IsDizz()
     {
         return isDizz;
@@ -108,5 +143,9 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public void SetDizz(bool isDizz)
     {
         this.isDizz = isDizz;
+    }
+    public void GiveDizzBuff(float time)
+    {
+        StartCoroutine(BuffController.CantMoveBuff(this, time));
     }
 }
