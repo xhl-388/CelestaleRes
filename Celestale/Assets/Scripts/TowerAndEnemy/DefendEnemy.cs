@@ -6,5 +6,16 @@ using UnityEngine;
 /// </summary>
 public class DefendEnemy : AttackEnemy
 {
-
+    protected override void Start()
+    {
+        base.Start();
+    }
+    protected override void Awake()
+    {
+        base.Awake();
+    }
+    protected override void Update()
+    {
+        base.Update();
+    }
 }

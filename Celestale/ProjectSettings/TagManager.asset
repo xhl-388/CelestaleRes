@@ -15,8 +15,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - Tower
+  - Enemy
   - 
   - 
   - 
@@ -42,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Env_Behind
+    uniqueID: 1328550923
+    locked: 0
+  - name: Env_Middle
+    uniqueID: 1243099581
+    locked: 0
+  - name: Env_Front
+    uniqueID: 3628472989
+    locked: 0
+  - name: Character
+    uniqueID: 2281163113
+    locked: 0
+  - name: Bullet
+    uniqueID: 31165657
     locked: 0

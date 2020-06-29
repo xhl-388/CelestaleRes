@@ -16,34 +16,39 @@ public class AttackEnemy : Enemy,IAbilityChange,IShootSpeedChange
 
     protected float nextAttackTime;
     protected State state;
+    protected Animator anim;
 
     protected LayerMask towerLayer;
     protected virtual void Start()
     {
-        nextAttackTime = Time.time + attackSpeed;
+        nextAttackTime = Time.time + attackSpeedNow;
     }
     protected enum State
     {
         Move,
-        Attack
+        Attack,
+        Rest
     }
     protected virtual void Awake()
     {
+        anim = GetComponent<Animator>();
         towerLayer = 1 << LayerMask.NameToLayer("Tower");
         attackSpeedNow = attackSpeed;
         InitEnemy();
     }
     protected virtual void Update()
     {
-        if (IsDizz())
+        if (IsDizz()||state==State.Rest)
         {
+            SetAnim();
             return;
         }
         if (Time.time > nextAttackTime)
         {
             state = State.Attack;
-            nextAttackTime = Time.time + attackSpeed;
+            nextAttackTime = Time.time + attackSpeedNow;
         }
+        SetAnim();
         switch (state)
         {
             case State.Attack:Attack();
@@ -52,21 +57,41 @@ public class AttackEnemy : Enemy,IAbilityChange,IShootSpeedChange
                 break;
         }
     }
+    protected void SetAnim()
+    {
+        if (state == State.Attack)
+        {
+            if (!anim.GetBool("IsAttacking"))
+            {
+                anim.SetBool("IsAttacking", true);
+            }
+        }
+        else
+        {
+            if (anim.GetBool("IsAttacking"))
+            {
+                anim.SetBool("IsAttacking", false);
+            }
+        }
+    }
     protected virtual void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, towerLayer);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(attackRadius,attackRadius),0, towerLayer);
         if (colliders.Length != 0)
         {
             int attackT = Random.Range(0, colliders.Length);
             colliders[attackT].GetComponent<Tower>().GetDamaged(attack * attackRate);
+            StartCoroutine(RestAfterAttack());
         }
+        if(state==State.Attack)
+            state = State.Move;
+    }
+    IEnumerator RestAfterAttack()
+    {
+        state = State.Rest;
+        yield return new WaitForSeconds(0.2f);
         state = State.Move;
     }
-    private void Move()
-    {
-
-    }
-
 
 
     public float GetAbilityNow()

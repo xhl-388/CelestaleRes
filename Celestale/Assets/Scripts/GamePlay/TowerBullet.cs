@@ -11,10 +11,10 @@ public class TowerBullet : MonoBehaviour
     private float speed;                        //朝目标行进的速度
     [HideInInspector]
     public float damage;                        //炮弹的伤害（在被实例化时确定）
-    private Vector3 transition;
+    private Vector2 transition;
     private void Start()
     {
-        transition = targetTransform.position - transform.position;
+        
     }
     private void Update()
     {
@@ -22,8 +22,12 @@ public class TowerBullet : MonoBehaviour
         {
             Destroy(gameObject);                //可能行进时敌人已经死亡，此时销毁该物体
         }
-        transform.LookAt(targetTransform);
-        transform.Translate(transition * Time.deltaTime * speed);      //朝目标移动
+        else
+        {
+            transition = targetTransform.position - transform.position;
+            //transform.LookAt(targetTransform);
+            transform.Translate(transition / transition.magnitude * Time.deltaTime * speed);
+        }      //朝目标移动
     }
     private void OnTriggerEnter2D(Collider2D collision)         //碰到目标敌人时自爆
     {

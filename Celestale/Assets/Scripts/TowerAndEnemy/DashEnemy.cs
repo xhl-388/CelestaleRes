@@ -18,9 +18,4 @@ public class DashEnemy :Enemy
         }
         Move();
     }
-    private void Move()
-    {
-        transform.Translate(transition*Time.deltaTime*speed);
-        //if(Vector2.Distance(transform.position,way[wayIndex])==0f)
-    }
 }

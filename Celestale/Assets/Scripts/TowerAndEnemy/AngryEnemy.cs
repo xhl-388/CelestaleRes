@@ -8,7 +8,7 @@ public class AngryEnemy : AttackEnemy
 {
     protected override void Attack()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, attackRadius, towerLayer);
+        Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(attackRadius,attackRadius),0, towerLayer);
         float highestAbility=0;
         int index=0;
         for(int i = 0; i < colliders.Length; i++)

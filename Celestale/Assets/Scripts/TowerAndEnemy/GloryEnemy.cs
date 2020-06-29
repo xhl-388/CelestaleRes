@@ -10,7 +10,7 @@ public class GloryEnemy : DashEnemy
     [SerializeField]
     private float attackDamage;
     [SerializeField]
-    private int frameOnceAttack;
+    private float attackSpeed;
     [SerializeField]
     private float gloryRadius;
     private LayerMask towerLayer;
@@ -21,14 +21,14 @@ public class GloryEnemy : DashEnemy
     }
     private void Start()
     {
-        nextAttackTime = Time.time + frameOnceAttack * Time.fixedTime;
+        nextAttackTime = Time.time + attackSpeed;
     }
     protected override void Update()
     {
         if (Time.time > nextAttackTime)
         {
             AttackTower();
-            nextAttackTime = Time.time + frameOnceAttack*Time.fixedTime;
+            nextAttackTime = Time.time + attackSpeed;
         }
         base.Update();
     }

@@ -23,15 +23,16 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
     protected int wayIndex;
     protected virtual void InitEnemy()
     {
-        MapData.instance.mapDic.TryGetValue(SceneManager.GetActiveScene().buildIndex,out way);
-        wayIndex = 0;
-        transition = new Vector2(way[0].x - transform.position.x, way[0].y - transform.position.y);
+        way=MapData.instance.mapVec[SceneManager.GetActiveScene().buildIndex];
         //这里的buildindex很可能具有一个差值
+        wayIndex = 0;
+        Vector2 vec = new Vector2(way[0].x - transform.position.x, way[0].y - transform.position.y);
+        transition = vec/vec.magnitude;
         attackedRate = 1f;
         attackRate = 1f;
         HpNow = Hp;
     }
-    public void GetDamaged(float damage)
+    public virtual void GetDamaged(float damage)
     {
         float trueDamage = (damage * attackedRate - armor) <= 0 ? 0 : (damage * attackedRate - armor);
         HpNow = Mathf.Clamp(HpNow - trueDamage, 0f, Hp);
@@ -40,12 +41,49 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
             BeDestroyed();
         }
     }
+    protected void Move()
+    {
+        if (transition.x < 0)
+        {
+            transform.localScale = new Vector3(-1,1);
+        }
+        else
+        {
+            transform.localScale = new Vector3(1, 1);
+        }
+        transform.Translate(transition * Time.deltaTime * speed);
+        if (Vector2.Distance(transform.position, way[wayIndex]) <=0.01f)
+        {
+            if (wayIndex != way.Length-1)
+            {
+                Vector2 vec = way[wayIndex + 1] - (Vector2)transform.position;
+                transition = vec / vec.magnitude ;
+                wayIndex += 1;
+            }
+            else
+            {
+                //到达终点了
+                transition = Vector2.zero;
+            }
+        }
+    }
     protected virtual void BeDestroyed()
     {
         StopAllCoroutines();
         Destroy(gameObject);
     }
-
+    public void KilledByKing()
+    {
+        BeDestroyed();
+    }
+    public float GetHp()
+    {
+        return Hp;
+    }
+    public float GetHpNow()
+    {
+        return HpNow;
+    }
 
 
     public float GetArmorNow()

@@ -35,6 +35,11 @@ public interface IDizziness
     bool IsDizz();
     void SetDizz(bool isDizz);
 }
+public interface IImpassible
+{
+    bool IsImpassible();
+    void SetImpassible(bool isImpassible);
+}
 public class BuffController    
 {
     public static IEnumerator AttackBuff(IAbilityChange o,float change,float time)
@@ -95,6 +100,15 @@ public class BuffController
             o.SetDizz(true);
             yield return new WaitForSeconds(time);
             o.SetDizz(false);
+        }
+    }
+    public static IEnumerator ImpassibleBuff(IImpassible o,float time)
+    {
+        if (!o.IsImpassible())
+        {
+            o.SetImpassible(true);
+            yield return new WaitForSeconds(time);
+            o.SetImpassible(false);
         }
     }
 }

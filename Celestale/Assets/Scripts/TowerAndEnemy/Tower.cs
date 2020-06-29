@@ -4,13 +4,14 @@ using UnityEngine;
 /// <summary>
 /// the base of all the towers
 /// </summary>
-public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRateChange,IShootSpeedChange,IDizziness
+public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRateChange,IShootSpeedChange,IDizziness,IImpassible
 {
     [SerializeField]
     protected float Hp;             //生命值上限
     protected float HpNow;          //当前生命值
     public bool isFullHp { get { return Hp == HpNow; } }
     private bool isDizz = false;
+    private bool isImpassible = false;
     protected float shield = 0f;
     private bool hasShield { get { return shield != 0f; } }
     [SerializeField]
@@ -24,14 +25,17 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     protected float abilityRate;    //能力倍率
     protected float beAttackedRate; //收到伤害的倍率
     [SerializeField]
-    protected int arrangeCost;      //部署花费
+    protected int _arrangeCost;      //部署花费
+    public int arrangeCost { get { return _arrangeCost; } }
+    public int cancelGain { get { return (int)(0.75 * _arrangeCost); } }      //消除的费用返还
     [SerializeField]
-    protected int cancelGain;       //消除的费用返还
-    public virtual void Act(object o)               //行为（包括攻击，施加减益，回血）
+    private float _nextArrangeBreak;
+    public float nextArrangeBreak { get { return _nextArrangeBreak; } }
+    public virtual void Act(GameObject o)               //行为（包括攻击，施加减益，回血）
     {
         Debug.LogWarning("No upper component!");
     }
-    public void BeDestroyed()               //被摧毁
+    public virtual void BeDestroyed()               //被摧毁
     {
         StopAllCoroutines();
         Destroy(gameObject);
@@ -147,5 +151,17 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public void GiveDizzBuff(float time)
     {
         StartCoroutine(BuffController.CantMoveBuff(this, time));
+    }
+    public bool IsImpassible()
+    {
+        return isImpassible;
+    }
+    public void SetImpassible(bool isImpassible)
+    {
+        this.isImpassible = isImpassible;
+    }
+    public void GiveImpassibleBuff(float time)
+    {
+        StartCoroutine(BuffController.ImpassibleBuff(this, time));
     }
 }
