@@ -27,6 +27,7 @@ public class AttackAllTower : AttackTower
                     Act(enemyList[i]);
                 for (int i = 0; i < defendEnemy.Count; i++)
                     Act(defendEnemy[i]);
+                nextAttackTime = Time.time + shootSpeedNow;
             }
             else state = State.Idle;
         }

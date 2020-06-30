@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FoundationTower : MonoBehaviour
+public class FoundationTower : Tower
 {
 
 }

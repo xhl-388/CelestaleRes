@@ -97,6 +97,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4237aa59eebe5542a4f5241531fa564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Hp: 10000
+  shootSpeed: 0
+  shootRadius: 0
+  abilityValue: 0
+  _arrangeCost: 20
+  _nextArrangeBreak: 60
 --- !u!61 &4795463254812529108
 BoxCollider2D:
   m_ObjectHideFlags: 0

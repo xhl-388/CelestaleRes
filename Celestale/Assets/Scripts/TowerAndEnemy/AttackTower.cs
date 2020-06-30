@@ -27,7 +27,7 @@ public class AttackTower : Tower
     {
         state = State.Attack;
         GameObject bullet;
-        bullet = Instantiate(bulletOfThis);
+        bullet = Instantiate(bulletOfThis,transform);
         bullet.GetComponent<TowerBullet>().damage = abilityValueNow*abilityRate;
         bullet.GetComponent<TowerBullet>().targetTransform = o.transform;
     }

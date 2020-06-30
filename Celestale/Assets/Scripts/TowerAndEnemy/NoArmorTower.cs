@@ -28,7 +28,7 @@ public class NoArmorTower : AttackTower
     {
         GameObject bullet;
         state = State.Attack;
-        bullet = Instantiate(bulletOfThis);
+        bullet = Instantiate(bulletOfThis,transform);
         bullet.GetComponent<TowerBullet>().damage = abilityValueNow * abilityRate+o.GetComponent<Enemy>().GetArmorNow();
         bullet.GetComponent<TowerBullet>().targetTransform = o.transform;
     }
