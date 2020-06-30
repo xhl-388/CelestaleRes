@@ -24,7 +24,7 @@ public class MoneyController : MonoBehaviour
     }
     public void CostMoney(int cost)
     {
-        Money -= cost;
+        moneyFloat -= cost;
         if (Money < 0)
         {
             Debug.LogError("Money not enough");

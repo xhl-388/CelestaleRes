@@ -7,6 +7,9 @@ TagManager:
   - Tower
   - Enemy
   - UI_Money
+  - UI_Card
+  - Home
+  - UI
   layers:
   - Default
   - TransparentFX

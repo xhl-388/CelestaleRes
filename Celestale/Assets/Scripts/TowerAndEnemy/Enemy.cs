@@ -62,7 +62,8 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
             }
             else
             {
-                //到达终点了
+                HealthController.instance.GetDamaged();
+                BeDestroyed();
                 transition = Vector2.zero;
             }
         }

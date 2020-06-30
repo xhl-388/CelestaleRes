@@ -8,9 +8,17 @@ public class TowerPutUI : MonoBehaviour
 
     private bool isReadyToPut=false;
     private LayerMask buildAreaLayer;
+    private GameObject[] cDUpdate;
+
+    private int index;
     private void Awake()
     {
         buildAreaLayer = 1 << LayerMask.NameToLayer("BuildArea");
+        cDUpdate = GameObject.FindGameObjectsWithTag("UI_Card");
+        for(int i = 0; i < 10; i++)
+        {
+            cDUpdate[i].GetComponent<CDUpdate>().Cd = towers[i].GetComponent<Tower>().nextArrangeBreak;
+        }
     }
     private void Update()
     {
@@ -34,10 +42,22 @@ public class TowerPutUI : MonoBehaviour
                     }
                     else
                     {
-                        GameObject obj = Instantiate(BuildTowerController.instance.nextBuildTower, buildArea.transform);
-                        MoneyController.instance.CostMoney(obj.GetComponent<Tower>().arrangeCost);
-                        buildArea.hasOccupied = true;
-                        buildArea.occupyTower = obj;
+                        if (MoneyController.instance.Money >= BuildTowerController.instance.nextBuildTower.GetComponent<Tower>().arrangeCost)
+                        {
+                            Debug.Log(BuildTowerController.instance.nextBuildTower.GetComponent<Tower>().arrangeCost);
+                            isReadyToPut = false;
+                            cDUpdate[index].GetComponent<CDUpdate>().EnterCD();
+                            GameObject obj = Instantiate(BuildTowerController.instance.nextBuildTower, buildArea.transform);
+                            BuildTowerController.instance.nextBuildTower = null;
+                            MoneyController.instance.CostMoney(obj.GetComponent<Tower>().arrangeCost);
+                            buildArea.hasOccupied = true;
+                            buildArea.occupyTower = obj;
+                        }
+                        else
+                        {
+                            isReadyToPut = false;
+                            BuildTowerController.instance.nextBuildTower = null;
+                        }
                     }
                 }
                 else
@@ -50,52 +70,132 @@ public class TowerPutUI : MonoBehaviour
     }
     public void ReadyTower1()
     {
-        BuildTowerController.instance.nextBuildTower = towers[0];
-        isReadyToPut = true;
+        if (cDUpdate[0].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[0];
+            isReadyToPut = true;
+            index = 0;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower2()
     {
-        BuildTowerController.instance.nextBuildTower = towers[1];
-        isReadyToPut = true;
+        if (cDUpdate[1].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[1];
+            isReadyToPut = true;
+            index = 1;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower3()
     {
-        BuildTowerController.instance.nextBuildTower = towers[2];
-        isReadyToPut = true;
+        if (cDUpdate[2].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[2];
+            isReadyToPut = true;
+            index = 2;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower4()
     {
-        BuildTowerController.instance.nextBuildTower = towers[3];
-        isReadyToPut = true;
+        if (cDUpdate[3].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[3];
+            isReadyToPut = true;
+            index = 3;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower5()
     {
-        BuildTowerController.instance.nextBuildTower = towers[4];
-        isReadyToPut = true;
+        if (cDUpdate[4].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[4];
+            isReadyToPut = true;
+            index = 4;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower6()
     {
-        BuildTowerController.instance.nextBuildTower = towers[5];
-        isReadyToPut = true;
+        if (cDUpdate[5].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[5];
+            isReadyToPut = true;
+            index = 5;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower7()
     {
-        BuildTowerController.instance.nextBuildTower = towers[6];
-        isReadyToPut = true;
+        if (cDUpdate[6].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[6];
+            isReadyToPut = true;
+            index = 6;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower8()
     {
-        BuildTowerController.instance.nextBuildTower = towers[7];
-        isReadyToPut = true;
+        if (cDUpdate[7].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[7];
+            isReadyToPut = true;
+            index = 7;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower9()
     {
-        BuildTowerController.instance.nextBuildTower = towers[8];
-        isReadyToPut = true;
+        if (cDUpdate[8].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[8];
+            isReadyToPut = true;
+            index = 8;
+        }
+        else
+        {
+
+        }
     }
     public void ReadyTower10()
     {
-        BuildTowerController.instance.nextBuildTower = towers[9];
-        isReadyToPut = true;
+        if (cDUpdate[9].GetComponent<CDUpdate>().canBePut)
+        {
+            BuildTowerController.instance.nextBuildTower = towers[9];
+            isReadyToPut = true;
+            index = 9;
+        }
+        else
+        {
+
+        }
     }
 }

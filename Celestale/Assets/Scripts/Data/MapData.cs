@@ -12,6 +12,6 @@ public class MapData
     {
         mapVec[0] = new Vector2[2];
         mapVec[0][0] = new Vector2(-2, -2);
-        mapVec[0][1] = new Vector2(10, -2);
+        mapVec[0][1] = new Vector2(11, -2);
     }
 }
