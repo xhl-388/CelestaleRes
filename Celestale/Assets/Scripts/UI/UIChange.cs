@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIChange : MonoBehaviour
 {
@@ -47,6 +48,11 @@ public class UIChange : MonoBehaviour
     }
     public void Next()
     {
-        Debug.Log("LoadNextStage");
+        if(SceneManager.GetActiveScene().buildIndex!=7)
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        else
+        {
+
+        }
     }
 }

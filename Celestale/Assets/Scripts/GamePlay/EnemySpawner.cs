@@ -11,9 +11,8 @@ public class EnemySpawner : MonoBehaviour
     private float nextCheckTime;
     private void Start()
     {
-        thisStageEnemy = StageEnemy.instance.enemySpawnArry[SceneManager.GetActiveScene().buildIndex];
+        thisStageEnemy = StageEnemy.instance.enemySpawnArry[SceneManager.GetActiveScene().buildIndex-1];
         StartCoroutine(SpawnEnemy());
-        //buildindex存在差值
     }
     private void Update()
     {

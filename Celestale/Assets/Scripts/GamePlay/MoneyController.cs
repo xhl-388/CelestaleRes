@@ -8,18 +8,21 @@ public class MoneyController : MonoBehaviour
     public static MoneyController instance { private set; get; }
     public int Money { private set; get; }
     private float moneyFloat;
+    public int startMoney;
     private GameObject UI_Money;
+    [HideInInspector]
+    public float efficiency = 1;
     private void Awake()
     {
         UI_Money = GameObject.FindWithTag("UI_Money");
-        Money = 0;
-        moneyFloat = 0f;
+        moneyFloat =startMoney;
+        Money =(int)moneyFloat;
         instance = this;
     }
     private void Update()
     {
         UpdateMoney();
-        moneyFloat += Time.deltaTime * 4f;
+        moneyFloat += Time.deltaTime * 2f *efficiency;
         Money = (int)moneyFloat;
     }
     public void CostMoney(int cost)
@@ -32,7 +35,7 @@ public class MoneyController : MonoBehaviour
     }
     public void GetMoney(int get)
     {
-        Money += get;
+        moneyFloat += get;
     }
     public void UpdateMoney()
     {

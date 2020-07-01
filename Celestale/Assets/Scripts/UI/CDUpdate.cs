@@ -7,6 +7,7 @@ public class CDUpdate : MonoBehaviour
 {
     public bool canBePut = true;
     public float Cd;
+    [HideInInspector]
     public float nextArrangeTime;
     private void Update()
     {

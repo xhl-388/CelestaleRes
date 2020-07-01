@@ -10,6 +10,8 @@ TagManager:
   - UI_Card
   - Home
   - UI
+  - UI_Skill
+  - UI_Health
   layers:
   - Default
   - TransparentFX

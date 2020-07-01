@@ -23,8 +23,7 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
     protected int wayIndex;
     protected virtual void InitEnemy()
     {
-        way=MapData.instance.mapVec[SceneManager.GetActiveScene().buildIndex];
-        //这里的buildindex很可能具有一个差值
+        way=MapData.instance.mapVec[SceneManager.GetActiveScene().buildIndex-1];
         wayIndex = 0;
         Vector2 vec = new Vector2(way[0].x - transform.position.x, way[0].y - transform.position.y);
         transition = vec/vec.magnitude;
@@ -62,7 +61,7 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
             }
             else
             {
-                HealthController.instance.GetDamaged();
+                HealthController.instance.GetDamaged(1);
                 BeDestroyed();
                 transition = Vector2.zero;
             }

@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class TowerPutUI : MonoBehaviour
 {
-    public GameObject[] towers;
+    public GameObject[] towers=new GameObject[10];
 
     private bool isReadyToPut=false;
     private LayerMask buildAreaLayer;
     private GameObject[] cDUpdate;
 
     private int index;
+    private bool halfPrize = false;
     private void Awake()
     {
         buildAreaLayer = 1 << LayerMask.NameToLayer("BuildArea");
@@ -43,13 +44,27 @@ public class TowerPutUI : MonoBehaviour
                     else
                     {
                         if (MoneyController.instance.Money >= BuildTowerController.instance.nextBuildTower.GetComponent<Tower>().arrangeCost)
-                        {
-                            Debug.Log(BuildTowerController.instance.nextBuildTower.GetComponent<Tower>().arrangeCost);
+                        { 
                             isReadyToPut = false;
                             cDUpdate[index].GetComponent<CDUpdate>().EnterCD();
                             GameObject obj = Instantiate(BuildTowerController.instance.nextBuildTower, buildArea.transform);
+                            if (BuildTowerController.instance.nextBuildTower == towers[1])
+                            {
+                                if (halfPrize)
+                                {
+                                    MoneyController.instance.CostMoney((int)(obj.GetComponent<Tower>().arrangeCost*0.5));
+                                }
+                                else
+                                {
+                                    MoneyController.instance.CostMoney(obj.GetComponent<Tower>().arrangeCost);
+                                    halfPrize = true;
+                                }
+                            }
+                            else
+                            {
+                                MoneyController.instance.CostMoney(obj.GetComponent<Tower>().arrangeCost);
+                            }
                             BuildTowerController.instance.nextBuildTower = null;
-                            MoneyController.instance.CostMoney(obj.GetComponent<Tower>().arrangeCost);
                             buildArea.hasOccupied = true;
                             buildArea.occupyTower = obj;
                         }
@@ -163,6 +178,19 @@ public class TowerPutUI : MonoBehaviour
     {
         if (cDUpdate[7].GetComponent<CDUpdate>().canBePut)
         {
+            GameObject[] towers1 = GameObject.FindGameObjectsWithTag("Tower");
+            bool flag = false;
+            for (int i = 0; i < towers1.Length; i++)
+            {
+                if (towers1[i].GetComponent<AtkSpeedUpTower>())
+                {
+                    flag = true;
+                }
+            }
+            if (flag)
+            {
+                return;
+            }
             BuildTowerController.instance.nextBuildTower = towers[7];
             isReadyToPut = true;
             index = 7;
@@ -176,6 +204,19 @@ public class TowerPutUI : MonoBehaviour
     {
         if (cDUpdate[8].GetComponent<CDUpdate>().canBePut)
         {
+            GameObject[] towers1 = GameObject.FindGameObjectsWithTag("Tower");
+            bool flag = false;
+            for (int i = 0; i < towers1.Length; i++)
+            {
+                if (towers1[i].GetComponent<FoundationTower>())
+                {
+                    flag = true;
+                }
+            }
+            if (flag)
+            {
+                return;
+            }
             BuildTowerController.instance.nextBuildTower = towers[8];
             isReadyToPut = true;
             index = 8;
@@ -189,6 +230,19 @@ public class TowerPutUI : MonoBehaviour
     {
         if (cDUpdate[9].GetComponent<CDUpdate>().canBePut)
         {
+            GameObject[] towers1 = GameObject.FindGameObjectsWithTag("Tower");
+            bool flag = false;
+            for (int i = 0; i < towers1.Length; i++)
+            {
+                if (towers1[i].GetComponent<AtkUpTower>())
+                {
+                    flag = true;
+                }
+            }
+            if (flag)
+            {
+                return;
+            }
             BuildTowerController.instance.nextBuildTower = towers[9];
             isReadyToPut = true;
             index = 9;

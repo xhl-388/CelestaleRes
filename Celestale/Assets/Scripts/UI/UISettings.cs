@@ -12,6 +12,6 @@ public class UISettings : MonoBehaviour
     }
     public void Exit()
     {
-        Debug.Log("Exit");
+        SceneManager.LoadScene(0);
     }
 }

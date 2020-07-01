@@ -11,11 +11,11 @@ public class UseInterfaceAudio : MonoBehaviour      //一个播放音效的单�
     private AudioSource audioSource;
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         if (instance != null)
         {
             Destroy(instance);
         }
         else instance = this;
+        audioSource = GetComponent<AudioSource>();
     }
 }
