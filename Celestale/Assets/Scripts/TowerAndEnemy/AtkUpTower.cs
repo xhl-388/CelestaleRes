@@ -8,9 +8,11 @@ public class AtkUpTower : Tower
     private float nextAttackTime;
     private State state;
     private Animator anim;
+    private AudioSource audioSource;
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
     private void Start()
     {
@@ -27,6 +29,7 @@ public class AtkUpTower : Tower
     {
         if (Time.time > nextAttackTime)
         {
+            bool killed = false;
             Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(shootRadius, shootRadius), 0f, enemyLayer);
             for(int i = 0; i < colliders.Length; i++)
             {
@@ -36,7 +39,12 @@ public class AtkUpTower : Tower
                     Debug.Log("Killed");
                     state = State.Attack;
                     enemy.KilledByKing();
+                    killed = true;
                 }
+            }
+            if (killed == true)
+            {
+                audioSource.Play();
             }
             nextAttackTime = Time.time + shootSpeedNow;
         }

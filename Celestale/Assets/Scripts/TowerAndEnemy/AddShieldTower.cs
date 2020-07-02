@@ -8,6 +8,7 @@ public class AddShieldTower : Tower
     private LayerMask towerLayer;
     private State state;
     private Animator anim;
+    private AudioSource audioSource;
     enum State
     {
         Idle,
@@ -15,6 +16,7 @@ public class AddShieldTower : Tower
     }
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         InitTower();
     }
@@ -32,6 +34,7 @@ public class AddShieldTower : Tower
             for (int i = 0; i < colliders.Length; i++)
             {
                 Act(colliders[i].gameObject);
+                audioSource.Play();
             }
             nextAddTime = Time.time + shootSpeedNow;
         }

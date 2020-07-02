@@ -13,6 +13,7 @@ public class AttackTower : Tower
     public GameObject bulletOfThis;                                 //该炮台的炮弹的prefab
     protected State state;
     private Animator anim;
+    protected AudioSource audioSource;
     protected enum State
     {
          Idle,
@@ -21,10 +22,12 @@ public class AttackTower : Tower
     protected virtual void Awake()
     {
         anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         InitTower();                //初始化炮台属性
     }
     public override void Act(GameObject o)          //攻击行为：发射炮弹
     {
+        audioSource.Play();
         state = State.Attack;
         GameObject bullet;
         bullet = Instantiate(bulletOfThis,transform);

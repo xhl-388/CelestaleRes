@@ -25,8 +25,8 @@ public class TowerBullet : MonoBehaviour
         else
         {
             transition = targetTransform.position - transform.position;
-            //transform.LookAt(targetTransform);
-            transform.Translate(transition / transition.magnitude * Time.deltaTime * speed);
+            transform.eulerAngles = new Vector3(0, 0, Mathf.Atan2(transition.y, transition.x)*Mathf.Rad2Deg);
+            transform.Translate(transition / transition.magnitude * Time.deltaTime * speed,Space.World);
         }      //朝目标移动
     }
     private void OnTriggerEnter2D(Collider2D collision)         //碰到目标敌人时自爆

@@ -13,6 +13,7 @@ public class HealTower : Tower
     private float nextSearchTime;
     private State state;
     private Animator anim;
+    private AudioSource audioSource;
     enum State
     {
         Idle,
@@ -20,6 +21,7 @@ public class HealTower : Tower
     }
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         InitTower();
         towerLayer = 1 << LayerMask.NameToLayer("Tower");
@@ -80,7 +82,7 @@ public class HealTower : Tower
     }
     public override void Act(GameObject o)      //行为：治疗友方
     {
-        Debug.Log("Heal");
+        audioSource.Play();
         state = State.Heal;
         o.GetComponent<Tower>().GetHealed(abilityValueNow*abilityRate);
     }

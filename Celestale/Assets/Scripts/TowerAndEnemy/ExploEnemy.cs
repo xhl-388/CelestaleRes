@@ -8,7 +8,7 @@ public class ExploEnemy : DashEnemy
 {
     private LayerMask towerLayer;
     [SerializeField]
-    private float exploDamage;
+    private float exploDamage=200;
     protected override void Awake()
     {
         base.Awake();

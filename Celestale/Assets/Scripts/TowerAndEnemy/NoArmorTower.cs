@@ -26,6 +26,7 @@ public class NoArmorTower : AttackTower
     }
     public override void Act(GameObject o)
     {
+        audioSource.Play();
         GameObject bullet;
         state = State.Attack;
         bullet = Instantiate(bulletOfThis,transform);

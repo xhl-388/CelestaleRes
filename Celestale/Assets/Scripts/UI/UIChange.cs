@@ -48,8 +48,11 @@ public class UIChange : MonoBehaviour
     }
     public void Next()
     {
-        if(SceneManager.GetActiveScene().buildIndex!=7)
+        if (SceneManager.GetActiveScene().buildIndex != 7)
+        {
+            Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
         else
         {
 

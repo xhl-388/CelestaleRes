@@ -7,6 +7,7 @@ public class FieldHelpTower : Tower
     private LayerMask towerLayer;
     private List<GameObject> helpTower = new List<GameObject>();
     private float nextGetTime;
+    private AudioSource audioSource;
     private void GetTower()
     {
         Collider2D[] colliders = Physics2D.OverlapBoxAll(transform.position, new Vector2(shootRadius, shootRadius), 0, towerLayer);
@@ -22,7 +23,9 @@ public class FieldHelpTower : Tower
     }
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         towerLayer = 1 << LayerMask.NameToLayer("Tower");
+        InitTower();
     }
     private void Start()
     {
@@ -34,6 +37,7 @@ public class FieldHelpTower : Tower
         if (Time.time > nextGetTime)
         {
             GetTower();
+            audioSource.Play();
             nextGetTime = Time.time + 3f;
         }
     }
