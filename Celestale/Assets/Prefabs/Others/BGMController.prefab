@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1909464139296085717}
   - component: {fileID: 1909464139296085716}
+  - component: {fileID: 2425046298038489666}
   m_Layer: 0
   m_Name: BGMController
   m_TagString: Untagged
@@ -127,3 +128,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2425046298038489666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909464139296085715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fddabe678931e1a41ae5f0313ad5af1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

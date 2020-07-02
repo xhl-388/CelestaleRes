@@ -12,6 +12,7 @@ TagManager:
   - UI
   - UI_Skill
   - UI_Health
+  - BGMController
   layers:
   - Default
   - TransparentFX

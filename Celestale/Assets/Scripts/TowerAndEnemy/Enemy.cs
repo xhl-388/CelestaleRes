@@ -69,6 +69,7 @@ public class Enemy : MonoBehaviour,IArmorChange,IAttackedRateChange,IAbilityRate
     }
     protected virtual void BeDestroyed()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.enemyDeath);
         StopAllCoroutines();
         Destroy(gameObject);
     }

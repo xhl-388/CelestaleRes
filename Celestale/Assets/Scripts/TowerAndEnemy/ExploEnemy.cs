@@ -7,8 +7,7 @@ using UnityEngine;
 public class ExploEnemy : DashEnemy
 {
     private LayerMask towerLayer;
-    [SerializeField]
-    private float exploDamage=200;
+    public float exploDamage;
     protected override void Awake()
     {
         base.Awake();

@@ -24,12 +24,14 @@ public class UIChange : MonoBehaviour
     }
     public void Pause()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_GamePlay.SetActive(false);
         UI_Settings.SetActive(true);
         Time.timeScale = 0;
     }
     public void DePause()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_GamePlay.SetActive(true);
         UI_Settings.SetActive(false);
         Time.timeScale = 1;
@@ -48,6 +50,7 @@ public class UIChange : MonoBehaviour
     }
     public void Next()
     {
+        BGMController.instance.SaveVolume();
         if (SceneManager.GetActiveScene().buildIndex != 7)
         {
             Time.timeScale = 1f;

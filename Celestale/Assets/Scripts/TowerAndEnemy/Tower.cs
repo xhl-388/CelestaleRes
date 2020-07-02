@@ -37,6 +37,7 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     }
     public virtual void BeDestroyed()               //被摧毁
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.towerDeath);
         StopAllCoroutines();
         Destroy(gameObject);
     }

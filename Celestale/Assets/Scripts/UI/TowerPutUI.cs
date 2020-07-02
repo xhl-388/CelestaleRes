@@ -8,6 +8,7 @@ public class TowerPutUI : MonoBehaviour
 
     private bool isReadyToPut=false;
     private LayerMask buildAreaLayer;
+    [SerializeField]
     private GameObject[] cDUpdate;
 
     private int index;

@@ -6,16 +6,18 @@ using UnityEngine;
 /// </summary>
 public class UseInterfaceAudio : MonoBehaviour      //一个播放音效的单例
 {
-    private static UseInterfaceAudio instance;
-
+    public static UseInterfaceAudio instance { private set; get; }
+    public AudioClip enemyDeath;
+    public AudioClip towerDeath;
+    public AudioClip click;
     private AudioSource audioSource;
     private void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(instance);
-        }
-        else instance = this;
+        instance = this;
         audioSource = GetComponent<AudioSource>();
+    }
+    public void PlayClip(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }

@@ -122,7 +122,7 @@ MonoBehaviour:
   armor: 150
   speed: 0.5
   attackSpeed: 3
-  attack: 600
+  attack: 300
   attackRadius: 7
 --- !u!58 &4842238905387493282
 CircleCollider2D:

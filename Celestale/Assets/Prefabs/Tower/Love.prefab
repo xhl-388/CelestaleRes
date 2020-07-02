@@ -101,7 +101,7 @@ MonoBehaviour:
   Hp: 700
   shootSpeed: 1
   shootRadius: 5
-  abilityValue: 80
+  abilityValue: 100
   _arrangeCost: 20
   _nextArrangeBreak: 20
 --- !u!61 &-5587996819125625202

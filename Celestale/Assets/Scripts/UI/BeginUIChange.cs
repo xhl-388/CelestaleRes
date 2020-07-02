@@ -28,47 +28,56 @@ public class BeginUIChange : MonoBehaviour
     }
     public void StartGame()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Start.SetActive(true);
         UI_Begin.SetActive(false);
     }
     public void ExitStartGame()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Start.SetActive(false);
         UI_Begin.SetActive(true);
 
     }
     public void SearchTower()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(false);
         UI_SearchTower.SetActive(true);
     }
     public void ExitSearchTower()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(true);
         UI_SearchTower.SetActive(false) ;
     }
     public void SearchCharacter()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(false);
         UI_SearchChara.SetActive(true);
     }
     public void ExitSearchCharacter()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(true);
         UI_SearchChara.SetActive(false) ;
     }
     public void Settings()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(false);
         UI_Settings.SetActive(true);
     }
     public void ExitSettings()
     {
+        UseInterfaceAudio.instance.PlayClip(UseInterfaceAudio.instance.click);
         UI_Begin.SetActive(true);
         UI_Settings.SetActive(false);
     }
     public void ExitGame()
     {
+        BGMController.instance.SaveVolume();
 #if UNITY_EDITOR 
         UnityEditor.EditorApplication.isPlaying = false;
 #else
