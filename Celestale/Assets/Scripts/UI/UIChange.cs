@@ -58,7 +58,7 @@ public class UIChange : MonoBehaviour
         }
         else
         {
-
+            SceneManager.LoadScene(0);
         }
     }
 }
