@@ -36,7 +36,9 @@ public class TowerPutUI : MonoBehaviour
                 Collider2D collider = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.1f, buildAreaLayer);
                 if (collider!=null)
                 {
+                    //Debug.Log(collider.name);
                     BuildArea buildArea = collider.GetComponent<BuildArea>();
+                    Debug.Log(buildArea.name);
                     if (buildArea.hasOccupied)
                     {
                         isReadyToPut = false;
