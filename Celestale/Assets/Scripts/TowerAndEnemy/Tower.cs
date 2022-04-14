@@ -30,6 +30,8 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public int cancelGain { get { return (int)(0.75 * _arrangeCost); } }      //消除的费用返还
     [SerializeField]
     private float _nextArrangeBreak;
+
+    [SerializeField] protected GameObject _attackColliderObject;
     public float nextArrangeBreak { get { return _nextArrangeBreak; } }
     public virtual void Act(GameObject o)               //行为（包括攻击，施加减益，回血）
     {
@@ -76,7 +78,7 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
         beAttackedRate = 1f;
 
         BoxCollider2D collider;
-        if ((collider = GetComponent<BoxCollider2D>()) != null)
+        if ((collider = _attackColliderObject.GetComponent<BoxCollider2D>()) != null)
         {
             collider.size = new Vector2(shootRadius, shootRadius);
         }

@@ -60,6 +60,7 @@ public class AddShieldTower : Tower
     }
     public override void Act(GameObject o)
     {
-        o.GetComponent<Tower>().GiveShieldBuff(abilityValueNow);
+        if(o!=_attackColliderObject)
+            o.GetComponent<Tower>().GiveShieldBuff(abilityValueNow);
     }
 }
