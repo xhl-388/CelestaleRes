@@ -9,6 +9,8 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     [SerializeField]
     protected float Hp;             //生命值上限
     protected float HpNow;          //当前生命值
+
+    private HPBarUI HPBarUI;
     public bool isFullHp { get { return Hp == HpNow; } }
     private bool isDizz = false;
     private bool isImpassible = false;
@@ -58,6 +60,7 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
             }
         }
         HpNow = Mathf.Clamp(HpNow-trueDamage, 0f, Hp);
+        HPBarUI.SetHP(0, HPBarUI.GetHP()-HpNow);
         if (HpNow == 0f)
         {
             BeDestroyed();
@@ -66,6 +69,7 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
     public void GetHealed(float resume)                         //收到治疗效果
     {
         HpNow = Mathf.Clamp(HpNow + resume, 0, Hp);
+        HPBarUI.SetHP(1,HpNow-HPBarUI.GetHP());
     }
     protected void InitTower()                      //初始化变量
     {  
@@ -75,6 +79,8 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
         abilityRate = 1f;
         beAttackedRate = 1f;
 
+        HPBarUI = gameObject.AddComponent(typeof(HPBarUI)) as HPBarUI;
+        HPBarUI.SetHP(2, HpNow);
         BoxCollider2D collider;
         if ((collider = GetComponent<BoxCollider2D>()) != null)
         {
