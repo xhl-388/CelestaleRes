@@ -9,6 +9,7 @@ public class FoundationTower : Tower
     private void Awake()
     {
         //audioSource = GetComponent<AudioSource>();
+        InitTower();
         MoneyController.instance.efficiency += 0.5f;
     }
     private void Start()

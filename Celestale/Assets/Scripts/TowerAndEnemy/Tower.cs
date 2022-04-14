@@ -86,7 +86,7 @@ public class Tower : MonoBehaviour,IAbilityChange,IAbilityRateChange,IAttackedRa
         Vector3 pos = RectTransformUtility.WorldToScreenPoint(Camera.main,gameObject.transform.position);
         Vector3 screenRate = new Vector3(-Screen.width * 0.02f, -Screen.height * 0.06f, 0f);
         Vector3 targetPos = new Vector3(pos.x, Screen.height - pos.y, pos.z)+screenRate;
-        Debug.Log(targetPos);
+        //Debug.Log(targetPos);
         HPBarUI.x = targetPos.x;
         HPBarUI.y = targetPos.y;
         HPBarUI.SetHP(2, HpNow);
