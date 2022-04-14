@@ -58,3 +58,8 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+# ignore personal user settings
+/UserSettings/
+
+# ignore rider settings 
+/.idea/
